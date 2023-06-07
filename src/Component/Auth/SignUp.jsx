@@ -9,7 +9,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 
 const SignUp = () => {
-  const {createNewUser} = useContext(UserContext)
+  const {createNewUser,googleLogin } = useContext(UserContext)
   const [error, setError] = useState("");
   const naviget = useNavigate()
   const {
@@ -63,7 +63,26 @@ const SignUp = () => {
         })
       });
   };
-
+  const LoginWithGoogle = () => {
+    googleLogin()
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Create New User Successfully',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      reset()
+      naviget('/')
+    })
+    .catch((err) => {
+      console.log(err.message);
+      toast.error(err.message)
+    })
+  }
   return (
    <>
     <div className="flex justify-center items-center my-5 p-5">
@@ -165,16 +184,8 @@ const SignUp = () => {
               <input
                 type="file"
                 {...register("image", {
-                  required: true,
                 })}
               />
-              {errors.image && (
-                <div>
-                  <span className="text-rose-500">
-                    Please Choose Your Photo
-                  </span>
-                </div>
-              )}
             </div>
           </div>
           <div className="py-3">
@@ -191,7 +202,7 @@ const SignUp = () => {
           <div className="mx-3">Or</div>
           <div className="w-full h-[1px] bg-gray-500"></div>
         </div>
-        <div className="flex justify-center items-center space-x-2 border m-3 p-2 rounded-xl border-gray-500 cursor-pointer">
+        <div onClick={LoginWithGoogle} className="flex justify-center items-center space-x-2 border m-3 p-2 rounded-xl border-gray-500 cursor-pointer">
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>

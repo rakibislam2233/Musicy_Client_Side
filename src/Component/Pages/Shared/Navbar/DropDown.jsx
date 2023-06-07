@@ -32,19 +32,17 @@ const DropDown = () => {
             <>
             <div>
             <HiMenuAlt3 className="w-10 h-10 text-white block md:hidden" ></HiMenuAlt3>
-            <Link to={'/login'}><button className="md:block hidden py-2 px-6 bg-amber-500 rounded-full">Login</button></Link>
+            <Link to={'/login'}><button className="md:block hidden py-2 px-6 bg-amber-500 rounded-full text-white font-semibold">Login</button></Link>
             </div>
             </>
           )}
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-32 bg-white overflow-hidden right-0 top-20 md:top-[75px] text-sm">
+        <div  className="absolute rounded-xl shadow-md w-40 bg-white overflow-hidden right-0 top-16 md:top-[68px] text-sm">
           <div className="flex flex-col cursor-pointer">
             <NavLink
               to="/"
-              aria-label="Home"
-              title="Home"
               className={({ isActive }) =>
                 isActive
                   ? " text-[#FF7703] block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
@@ -54,35 +52,29 @@ const DropDown = () => {
               Home
             </NavLink>
             <NavLink
-              to="/"
-              aria-label="Home"
-              title="Home"
+              to="/instructors"
               className={({ isActive }) =>
                 isActive
                   ? " text-[#FF7703] block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                   : "block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
               }
             >
-              Home
+              Instructors
             </NavLink>
             <NavLink
               to="/"
-              aria-label="Home"
-              title="Home"
               className={({ isActive }) =>
                 isActive
                   ? " text-[#FF7703] block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                   : "block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
               }
             >
-              Home
+              Classes
             </NavLink>
             {user ? (
               <>
                 <NavLink
-                  to="/"
-                  aria-label="Home"
-                  title="Home"
+                  to="dashboard"
                   className={({ isActive }) =>
                     isActive
                       ? " text-[#FF7703] px-4 py-3 hover:bg-neutral-100 transition font-semibold"
@@ -105,12 +97,6 @@ const DropDown = () => {
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                 >
                   Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                >
-                  Sign Up
                 </Link>
               </>
             )}
