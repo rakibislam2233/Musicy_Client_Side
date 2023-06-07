@@ -15,7 +15,7 @@ const SignUp = () => {
     if(data.password!==data.confirmPassword){
      return setError(`Password Dos't Match`)
     }
-    console.log(data);
+    
   };
 
   return (
@@ -66,8 +66,7 @@ const SignUp = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 15,
-                //   pattern:
-                //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]$/,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
                 })}
               />
               {errors.password?.type === "required" && (
@@ -85,12 +84,7 @@ const SignUp = () => {
                   Password must be less then 15 characters
                 </span>
               )}
-              {/* {errors.password?.type === "pattern" && (
-                <span className="text-rose-500">
-                  Password must be one uppercase letter, one lowercase letter,
-                  one number and one special character
-                </span>
-              )} */}
+              {errors.password?.type === 'pattern' && <p className="text-rose-500">Password must have one Uppercase one lower case, one number and one special character.</p>}
             </div>
             <div>
               <label htmlFor="password" className="block mb-2 text-sm">
