@@ -1,21 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../Context/AuthProvider";
 const DropDown = () => {
-  const user = false;
+  const {user,logOut} = useContext(UserContext)
   const [isOpen, setIsOpen] = useState(false);
+  const signOut = ()=>{
+    logOut()
+    setIsOpen(false)
+  }
   return (
     <div className="relative">
       <div>
         <div onClick={() => setIsOpen(!isOpen)} className=" ">
           {user ? (
             <div className="">
-              <img
+              {
+                user.photoURL ? <img
+                className="w-12 h-12 rounded-full cursor-pointer"
+                src={user.photoURL}
+                alt=""
+              /> : <img
                 className="w-12 h-12 rounded-full cursor-pointer"
                 src="https://i.postimg.cc/tCYRvj1Y/fotor-2023-6-7-10-43-49.png"
                 alt=""
               />
+              }
             </div>
           ) : (
             <>
@@ -81,7 +92,7 @@ const DropDown = () => {
                   Dashboard
                 </NavLink>
                 <div
-                  // onClick={logOut}
+                  onClick={signOut}
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
                 >
                   Logout

@@ -1,24 +1,71 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../Context/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
+import { Toaster, toast } from "react-hot-toast";
+
 
 const SignUp = () => {
-  const [error,setError] = useState('')
+  const {createNewUser} = useContext(UserContext)
+  const [error, setError] = useState("");
+  const naviget = useNavigate()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    setError('')
-    if(data.password!==data.confirmPassword){
-     return setError(`Password Dos't Match`)
+    setError("");
+    if (data.password !== data.confirmPassword) {
+      return setError(`Password Dos't Match`);
     }
-    
+    //imagebb website photo Upload
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        const imageUrl = imageData.data.display_url;
+        const {name,email,password,confirmPassword} = data;
+        // const userInfo = {name,email,password,confirmPassword}
+        createNewUser(email, password).then((result) => {
+          const user = result.user;
+          console.log(user);
+          updateProfile(user,{
+            displayName:name,
+            photoURL:imageUrl
+          })
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Create New User Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          reset()
+          naviget('/login')
+        })
+        .catch((err) => {
+          console.log(err.message);
+          toast.error(err.message)
+        })
+      });
   };
 
   return (
+   <>
     <div className="flex justify-center items-center my-5 p-5">
       <div className="w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900">
         <h2 className="text-2xl font-bold text-center py-2">
@@ -66,7 +113,7 @@ const SignUp = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 15,
-                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                  // pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
               />
               {errors.password?.type === "required" && (
@@ -84,41 +131,49 @@ const SignUp = () => {
                   Password must be less then 15 characters
                 </span>
               )}
-              {errors.password?.type === 'pattern' && <p className="text-rose-500">Password must have one Uppercase one lower case, one number and one special character.</p>}
+              {/* {errors.password?.type === "pattern" && (
+                <p className="text-rose-500">
+                  Password must have one Uppercase one lower case, one number
+                  and one special character.
+                </p>
+              )} */}
             </div>
             <div>
               <label htmlFor="password" className="block mb-2 text-sm">
-                Password
+                Confirm Password
               </label>
               <input
                 type="password"
                 placeholder="********"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 {...register("confirmPassword", {
-                     required: true,
-                 })}
+                  required: true,
+                })}
               />
               {errors.confirmPassword && (
-                <span className="text-rose-500">Please Enter Your Confirm Password</span>
+                <span className="text-rose-500">
+                  Please Enter Your Confirm Password
+                </span>
               )}
-               {
-               error ? <span className="text-rose-500">
-               {error}
-              </span> : ''
-                
-              }
+              {error ? <span className="text-rose-500">{error}</span> : ""}
             </div>
 
             <div>
               <label htmlFor="image" className="block mb-2 text-sm">
                 Photo URL:
               </label>
-              <input type="file" {...register("image", {
-                     required: true,
-                 })} />
-                 {errors.image && (
-                <div><span className="text-rose-500">Please Choose Your Photo</span></div>
-                
+              <input
+                type="file"
+                {...register("image", {
+                  required: true,
+                })}
+              />
+              {errors.image && (
+                <div>
+                  <span className="text-rose-500">
+                    Please Choose Your Photo
+                  </span>
+                </div>
               )}
             </div>
           </div>
@@ -153,6 +208,8 @@ const SignUp = () => {
         </p>
       </div>
     </div>
+    <Toaster></Toaster>
+   </>
   );
 };
 

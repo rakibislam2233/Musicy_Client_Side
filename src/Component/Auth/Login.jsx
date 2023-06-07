@@ -1,10 +1,37 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import { UserContext } from "../Context/AuthProvider";
+import { useContext } from "react";
+import { Toaster, toast } from "react-hot-toast";
 const Login = () => {
-   const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+  const {login} = useContext(UserContext)
+  const naviget = useNavigate()
+   const { register, handleSubmit,reset, formState: { errors } } = useForm();
+    const onSubmit = data =>{
+      const {email, password} = data;
+      login(email, password).then(result=>{
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Login Successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        reset()
+        naviget('/')
+      })
+      .catch((err) => {
+        console.log(err.message);
+        toast.error(err.message)
+      })
+
+    };
     return (
+       <>
         <div className='flex justify-center items-center my-5 p-5'>
         <div className='w-full max-w-[500px] p-6 rounded-2xl sm:p-10 bg-gray-100 text-gray-900'>
           <h2 className='text-2xl font-bold text-center py-2'>Login To Musicy</h2>
@@ -69,6 +96,8 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <Toaster></Toaster>
+       </>
     );
 };
 
