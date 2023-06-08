@@ -6,6 +6,10 @@ import SignUp from "../../Component/Auth/SignUp";
 import Dashboard from "../../LayOut/Dashboard/Dashboard";
 import Instructor from "../../Component/Pages/Instructor/Instructor";
 import Classes from "../../Component/Pages/Classes/Classes";
+import PrivetRoute from "../PrivetRoute/PrivetRoute";
+import ManageClass from "../../LayOut/Dashboard/Admin/ManageClass";
+import MangeUser from "../../LayOut/Dashboard/Admin/MangeUser";
+import AdminHome from "../../LayOut/Dashboard/Admin/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +22,7 @@ const router = createBrowserRouter([
      },
      {
       path: "/instructors",
-      element:<Instructor></Instructor>
+      element:<PrivetRoute><Instructor></Instructor></PrivetRoute>
      },
      {
       path:'/classes',
@@ -36,7 +40,21 @@ const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element:<Dashboard></Dashboard>
+    element:<PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
+    children:[
+      {
+        path:'',
+        element:<AdminHome></AdminHome>
+      },
+      {
+        path:'manageClass',
+        element:<ManageClass></ManageClass>
+      },
+      {
+        path:'manageUsers',
+        element:<MangeUser></MangeUser>
+      }
+    ]
   }
 ]);
 

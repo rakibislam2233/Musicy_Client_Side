@@ -6,9 +6,7 @@ import {HiMenuAlt3} from "react-icons/hi";
 const NaviBarLink = () => {
   const { user, logOut } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const handelLogOut = () => {
-    logOut();
-  };
+
   return (
     <>
       <ul className="items-center text-white hidden space-x-5 lg:flex">
@@ -68,7 +66,7 @@ const NaviBarLink = () => {
               />
             </div>
             <div
-              // onClick={signOut}
+              onClick={logOut}
               className="font-semibold cursor-pointer"
             >
               <button className="py-2 px-6 bg-amber-500 rounded-xl font-semibold hover:bg-amber-400 transition duration-500">
@@ -190,7 +188,7 @@ const NaviBarLink = () => {
                         </label>
                         <button
                           className="bg-[#FF7703] py-1.5 px-5 rounded-full"
-                          onClick={handelLogOut}
+                          onClick={logOut}
                         >
                           LogOut
                         </button>
@@ -199,7 +197,6 @@ const NaviBarLink = () => {
                       <Link to="/login">
                         <button
                           className="bg-[#FF7703] py-1.5 px-8 text-white font-semibold rounded"
-                          onClick={handelLogOut}
                         >
                           Login
                         </button>

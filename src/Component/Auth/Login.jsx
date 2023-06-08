@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { UserContext } from "../Context/AuthProvider";
@@ -7,7 +7,9 @@ import { useContext } from "react";
 import { Toaster, toast } from "react-hot-toast";
 const Login = () => {
   const { login,googleLogin } = useContext(UserContext);
+  const location = useLocation();
   const naviget = useNavigate();
+  const from = location?.state?.from.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -28,7 +30,7 @@ const Login = () => {
           timer: 1500,
         });
         reset();
-        naviget("/");
+        naviget(from, { replace: true })
       })
       .catch((err) => {
         console.log(err.message);
@@ -39,16 +41,27 @@ const Login = () => {
     googleLogin()
     .then((result) => {
       const user = result.user;
-      console.log(user);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Login Successfully',
-        showConfirmButton: false,
-        timer: 1500
+      const userInfo = {name:user.displayName,email:user?.email,imageUrl:user.photoURL}
+      fetch(`http://localhost:5000/users/${user?.email}`,{
+        method:"PUT",
+        headers:{
+          'content-type': 'application/json'
+        },
+        body:JSON.stringify(userInfo)
       })
-      reset()
-      naviget('/')
+      .then(res=>res.json())
+      .then(data=>{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Login Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          reset()
+          naviget(from, { replace: true })
+        
+      })
     })
     .catch((err) => {
       console.log(err.message);

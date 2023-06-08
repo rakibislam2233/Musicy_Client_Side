@@ -42,20 +42,32 @@ const SignUp = () => {
         // const userInfo = {name,email,password,confirmPassword}
         createNewUser(email, password).then((result) => {
           const user = result.user;
-          console.log(user);
           updateProfile(user,{
             displayName:name,
             photoURL:imageUrl
           })
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Create New User Successfully',
-            showConfirmButton: false,
-            timer: 1500
+          const userInfo = {name,email,imageUrl}
+          fetch(`http://localhost:5000/users/${email}`,{
+            method:"PUT",
+            headers:{
+              'content-type': 'application/json'
+            },
+            body:JSON.stringify(userInfo)
           })
-          reset()
-          naviget('/login')
+          .then(res=>res.json())
+          .then(data=>{
+            console.log(data);
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Create New User Successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              reset()
+              naviget('/login')          
+          })
+
         })
         .catch((err) => {
           console.log(err.message);
@@ -67,16 +79,27 @@ const SignUp = () => {
     googleLogin()
     .then((result) => {
       const user = result.user;
-      console.log(user);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Create New User Successfully',
-        showConfirmButton: false,
-        timer: 1500
+      const userInfo = {name:user.displayName,email:user?.email,imageUrl:user.photoURL}
+      fetch(`http://localhost:5000/users/${user?.email}`,{
+        method:"PUT",
+        headers:{
+          'content-type': 'application/json'
+        },
+        body:JSON.stringify(userInfo)
       })
-      reset()
-      naviget('/')
+      .then(res=>res.json())
+      .then(data=>{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Login Successfully',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          reset()
+          naviget('/')
+        
+      })
     })
     .catch((err) => {
       console.log(err.message);
