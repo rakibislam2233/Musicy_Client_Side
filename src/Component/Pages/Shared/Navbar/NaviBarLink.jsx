@@ -71,14 +71,14 @@ const NaviBarLink = () => {
               // onClick={signOut}
               className="font-semibold cursor-pointer"
             >
-              <button className="py-2 px-6 bg-amber-500 rounded-xl font-semibold">
+              <button className="py-2 px-6 bg-amber-500 rounded-xl font-semibold hover:bg-amber-400 transition duration-500">
                 Logout
               </button>
             </div>
           </>
         ) : (
           <Link to="/login">
-            <button className="py-2 px-6 bg-amber-500 rounded-xl font-semibold">
+            <button className="py-2 px-6 bg-amber-500 rounded-xl font-semibold hover:bg-amber-400 transition duration-500">
               Login
             </button>
           </Link>

@@ -13,7 +13,6 @@ const Navbar = () => {
           <div className='flex flex-row  items-center justify-between gap-3 md:gap-0 h-10'>
             <Logo></Logo>
             <NaviBarLink></NaviBarLink>
-            {/* <DropDown></DropDown> */}
           </div>
       </Container>
     </div>
