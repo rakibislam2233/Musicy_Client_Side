@@ -10,6 +10,9 @@ import PrivetRoute from "../PrivetRoute/PrivetRoute";
 import ManageClass from "../../LayOut/Dashboard/Admin/ManageClass";
 import MangeUser from "../../LayOut/Dashboard/Admin/MangeUser";
 import AdminHome from "../../LayOut/Dashboard/Admin/AdminHome";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import AddClass from "../../LayOut/Dashboard/Instructor/AddClass";
+import MyClass from "../../LayOut/Dashboard/Instructor/MyClass";
 
 const router = createBrowserRouter([
   {
@@ -48,11 +51,22 @@ const router = createBrowserRouter([
       },
       {
         path:'manageClass',
-        element:<ManageClass></ManageClass>
+        element:<AdminRoute><ManageClass></ManageClass></AdminRoute>
       },
       {
         path:'manageUsers',
-        element:<MangeUser></MangeUser>
+        element:<AdminRoute><MangeUser></MangeUser></AdminRoute>
+      },
+      {
+        path:'instructor/home',
+      },
+      {
+        path:'addClass',
+        element:<AddClass></AddClass>
+      },
+      {
+        path:'myClass',
+        element:<MyClass></MyClass>
       }
     ]
   }
