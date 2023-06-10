@@ -1,7 +1,23 @@
+import axios from 'axios';
 import React from 'react';
+import Swal from 'sweetalert2';
 
 const ClassesDetails = ({singleClass}) => {
-  const {image,instructorName,availableSeats,price,className} = singleClass
+  const {_id,image,instructorName,availableSeats,price,className,selected} = singleClass
+  const bookingClass = classInfo =>{
+   axios.post(`http://localhost:5000/selectedClass`,classInfo)
+   .then(res=>{
+    if(res.data.modifiedCount>0){
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your Class Selected",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+   })
+  }
     return (
         <div className="cursor-pointer border p-3 rounded-2xl">
       <div className=" space-y-2 font-semibold">
@@ -29,7 +45,10 @@ const ClassesDetails = ({singleClass}) => {
         </div>
         <h2>Available seats : {availableSeats}</h2>
         <h2>Price : ${price}</h2>
-        <button className='py-2 px-5 bg-amber-500 text-white rounded-xl hover:bg-amber-400 transition duration-500'>Select Now</button>
+        {
+          selected ? <> <button disabled onClick={()=>bookingClass(singleClass)} className='py-2 px-5 bg-gray-500 text-white rounded-xl '>Select Now</button></>:<> <button onClick={()=>bookingClass(singleClass)} className='py-2 px-5 bg-amber-500 text-white rounded-xl hover:bg-amber-400 transition duration-500'>Select Now</button></>
+        }
+       
       </div>
     </div>
     );

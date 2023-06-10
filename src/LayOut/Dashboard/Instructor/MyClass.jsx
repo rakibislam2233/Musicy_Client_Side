@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
 import { useQuery } from 'react-query';
 import { UserContext } from '../../../Component/Context/AuthProvider';
@@ -11,7 +11,7 @@ const MyClass = () => {
     const res = await axiosSecure(`http://localhost:5000/instructor/myClass/${user?.email}`);
     return res.data  ;
   })
-  console.log(addedClass);
+  // TODO:Total Enrolled Students and Feedback
     return (
         <div className='w-full p-5'>
             <h3 className='text-3xl font-semibold text-center'>My Classes</h3>
@@ -25,7 +25,8 @@ const MyClass = () => {
               <th>Price</th>
               <th>Seats</th>
               <th>Status</th>
-              <th>TotalEnrolled</th>
+              <th>Enrolled</th>
+              <th>Feedback</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -39,6 +40,7 @@ const MyClass = () => {
                 <td>{user.availableSeats}</td>
                 <td className='font-semibold'>{user.status}</td>
                 <td>40</td>
+                <td>Something is worng</td>
                 <td>
                   <button className=' bg-rose-600 p-2 rounded'><HiPencilAlt className='w-6 h-6'></HiPencilAlt></button>
                 </td>

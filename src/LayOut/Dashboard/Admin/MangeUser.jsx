@@ -62,7 +62,7 @@ const MangeUser = () => {
   };
   return (
     <div className="w-full p-5">
-      <h2 className="text-3xl font-semibold text-center">Manag User</h2>
+      <h2 className="text-3xl font-semibold text-center">Manage User</h2>
       <div className="overflow-x-auto w-full my-3">
         <table className="table w-full">
           {/* head */}
@@ -71,6 +71,7 @@ const MangeUser = () => {
               <th>UserPhoto</th>
               <th>User Name</th>
               <th>User Email</th>
+              <th>Role</th>
               <th>Admin</th>
               <th>Instructor</th>
             </tr>
@@ -88,6 +89,7 @@ const MangeUser = () => {
                 </td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <th>{ user.role ? user.role : 'student'}</th>
                 <td>
                   {user?.role === "admin" || user?.role === "instructor" ? (
                     <>

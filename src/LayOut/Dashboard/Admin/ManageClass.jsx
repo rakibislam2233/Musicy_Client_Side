@@ -18,6 +18,7 @@ const ManageClass = () => {
     );
     return res.data;
   });
+  // TODO:Modal open to set feedback
   const updateRole = id=>{
     axios.patch(`http://localhost:5000/manageUsersRole/${id}`)
     .then(res=>{
@@ -27,6 +28,15 @@ const ManageClass = () => {
           position: 'center',
           icon: 'success',
           title: 'Approved Class Successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+      else{
+        Swal.fire({
+          position: 'center',
+          icon: 'Error',
+          title: 'Opps something is worng',
           showConfirmButton: false,
           timer: 1500
         })
@@ -47,12 +57,21 @@ const ManageClass = () => {
           timer: 1500
         })
       }
+      else{
+        Swal.fire({
+          position: 'center',
+          icon: 'Error',
+          title: 'Opps something is worng',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     })
 
   }
   return (
     <div className="w-full p-4 ">
-      <h2 className="text-3xl font-semibold text-center">Manag User</h2>
+      <h2 className="text-3xl font-semibold text-center">Manage Class</h2>
       <div className="overflow-x-auto w-full my-3">
         <table className="table w-full">
           {/* head */}
@@ -83,9 +102,16 @@ const ManageClass = () => {
                 <td>{user.availableSeats}</td>
                 <td>${user.price}</td>
                 <td className="font-semibold">{user.status}</td>
-                <td><button onClick={()=>updateRole(user._id)} className="p-2 bg-amber-400 rounded"><HiCheck className="w-4 h-4"></HiCheck></button></td>
                 <td>
-                  <button onClick={()=>updateRoleDeny(user._id)} className=" bg-rose-600 p-2 rounded"><HiX className="w-4 h-4"></HiX></button>
+                  {
+                    user.status === 'approved' || user.status === 'deny' ? <><button disabled onClick={()=>updateRole(user._id)} className="p-2 bg-amber-400 rounded"><HiCheck className="w-4 h-4"></HiCheck></button></> : <><button onClick={()=>updateRole(user._id)} className="p-2 bg-amber-400 rounded"><HiCheck className="w-4 h-4"></HiCheck></button></>
+                  }
+                </td>
+                <td>
+                  {
+                     user.status === 'approved' || user.status === 'deny' ? <><button disabled onClick={()=>updateRoleDeny(user._id)} className=" bg-rose-600 p-2 rounded"><HiX className="w-4 h-4"></HiX></button></>:<><button onClick={()=>updateRoleDeny(user._id)} className=" bg-rose-600 p-2 rounded"><HiX className="w-4 h-4"></HiX></button></>
+                  }
+                  
                 </td>
                 <td>
                   <button className=" bg-amber-600 p-2 rounded"><HiOutlineAnnotation className="w-4 h-4"></HiOutlineAnnotation></button>

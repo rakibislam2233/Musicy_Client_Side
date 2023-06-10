@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Container from "../Shared/Container";
 import ClassesDetails from "./ClassesDetails";
+import axios from "axios";
+import { useQuery } from "react-query";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 
 const Classes = () => {
-    const [classes,setClasses] = useState([])
-    useEffect(()=>{
-        fetch(`http://localhost:5000/class`)
-        .then(res=>res.json())
-        .then(data=>{
-          setClasses(data);
-        })
-    },[])
+  const [axiosSecure] = useAxiosSecure();
+  const { data: classes = [], refetch } = useQuery(["singleClass"], async () => {
+    const res = await axiosSecure(`/approvedClass`);
+    return res.data  ;
+  });
   return (
     <Container>
       <div className="pt-20">

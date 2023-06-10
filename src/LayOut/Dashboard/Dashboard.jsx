@@ -38,8 +38,8 @@ const Dashboard = () => {
           </label>
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side bg-gray-900 text-white">
-          <div>
+        <div className="drawer-side bg-white  md:bg-gray-900 md:text-white">
+          <div className="hidden md:block">
             <div className="flex flex-col items-center mt-6 -mx-2">
               <Link to="/dashboard">
                 <img
@@ -59,7 +59,7 @@ const Dashboard = () => {
           </div>
           
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <div className="flex flex-col justify-between flex-1 mt-6 space-y-2 font-semibold">
+          <div htmlFor="my-drawer-2" className="flex flex-col justify-between flex-1 mt-6 space-y-2 font-semibold">
             {isAdmin ? (
               <>
                 <NavLink
@@ -162,7 +162,7 @@ const Dashboard = () => {
               </>
             )}
           </div>
-          <div>
+          <div className="hidden md:block">
             <button onClick={handleLogout} className="py-2 px-5 rounded-xl mx-8 bg-amber-500 my-10">Back To Home</button>
           </div>
         </div>

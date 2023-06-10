@@ -62,6 +62,9 @@ const Login = () => {
           naviget(from, { replace: true })
         
       })
+      .catch(err => {
+        toast.error(err.message)
+      })
     })
     .catch((err) => {
       console.log(err.message);

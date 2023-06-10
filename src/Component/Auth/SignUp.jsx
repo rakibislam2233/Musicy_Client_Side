@@ -67,7 +67,9 @@ const SignUp = () => {
               reset()
               naviget('/login')          
           })
-
+          .catch(err => {
+            toast.error(err.message)
+          })
         })
         .catch((err) => {
           console.log(err.message);
@@ -99,6 +101,9 @@ const SignUp = () => {
           reset()
           naviget('/')
         
+      })
+      .catch(err => {
+        toast.error(err.message)
       })
     })
     .catch((err) => {
