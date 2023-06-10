@@ -13,11 +13,13 @@ import AdminHome from "../../LayOut/Dashboard/Admin/AdminHome";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import AddClass from "../../LayOut/Dashboard/Instructor/AddClass";
 import MyClass from "../../LayOut/Dashboard/Instructor/MyClass";
+import Errorpage from "../../Component/Errorpage/Errorpage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <Errorpage></Errorpage>,
     children: [
       {
       path: "/", 
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
   {
     path:'dashboard',
     element:<PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
+    errorElement:<Errorpage></Errorpage>,
     children:[
       {
         path:'',
