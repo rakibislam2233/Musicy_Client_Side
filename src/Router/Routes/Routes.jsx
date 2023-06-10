@@ -25,7 +25,7 @@ const router = createBrowserRouter([
      },
      {
       path: "/instructors",
-      element:<PrivetRoute><Instructor></Instructor></PrivetRoute>
+      element:<Instructor></Instructor>
      },
      {
       path:'/classes',

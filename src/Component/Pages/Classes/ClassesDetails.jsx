@@ -7,7 +7,8 @@ const ClassesDetails = ({singleClass}) => {
   const bookingClass = classInfo =>{
    axios.post(`http://localhost:5000/selectedClass`,classInfo)
    .then(res=>{
-    if(res.data.modifiedCount>0){
+    console.log(res.data);
+    if(res.data.insertedId){
       Swal.fire({
         position: "center",
         icon: "success",

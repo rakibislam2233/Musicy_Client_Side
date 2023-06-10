@@ -3,9 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { UserContext } from "../Context/AuthProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import { AiFillEye,AiFillEyeInvisible } from "react-icons/ai";
 const Login = () => {
+  const [hide,setHide] = useState(false)
   const { login,googleLogin } = useContext(UserContext);
   const location = useLocation();
   const naviget = useNavigate();
@@ -94,16 +96,21 @@ const Login = () => {
                   <span className="text-rose-500">Please enter your email</span>
                 )}
               </div>
-              <div>
+              <div className="relative">
                 <label htmlFor="password" className="block mb-2 text-sm">
                   Password
                 </label>
                 <input
-                  type="password"
+                  type={`${hide ? 'text' : 'password'}`}
                   placeholder="********"
                   {...register("password", { required: true })}
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
                 />
+                <div onClick={()=>setHide(!hide)} className="absolute top-10 right-3 cursor-pointer">
+                  {
+                    hide? <AiFillEye></AiFillEye>  : <AiFillEyeInvisible></AiFillEyeInvisible>
+                  }
+                </div>
                 {errors.password && (
                   <span className="text-rose-500">
                     Please enter your password
