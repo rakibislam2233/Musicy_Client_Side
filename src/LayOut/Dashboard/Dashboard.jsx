@@ -148,7 +148,7 @@ const Dashboard = () => {
                     }
                   >
                     <span className="flex items-center gap-1">
-                      <HiBookOpen></HiBookOpen> My Selected Classes
+                      <HiBookOpen></HiBookOpen> Selected Class
                     </span>
                   </NavLink>
                 </li>
@@ -160,8 +160,8 @@ const Dashboard = () => {
                     }
                   >
                     <span className="flex items-center gap-1">
-                      <HiOutlineViewBoards></HiOutlineViewBoards>My Enrolled
-                      Classes
+                      <HiOutlineViewBoards></HiOutlineViewBoards>Enrolled
+                      Class
                     </span>
                   </NavLink>
                 </li>

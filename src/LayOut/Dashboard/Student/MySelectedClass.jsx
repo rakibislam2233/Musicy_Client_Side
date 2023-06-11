@@ -1,16 +1,20 @@
-import React, { useContext } from 'react';
-import { useQuery } from 'react-query';
-import useAxiosSecure from '../../../Hook/useAxiosSecure';
-import { UserContext } from '../../../Component/Context/AuthProvider';
+import { useQuery } from "react-query";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import { getShoppingCart } from "../../../utilities/fakedb";
 
 const MySelectedClass = () => {
-    const {user} = useContext(UserContext)
-    const [axiosSecure] = useAxiosSecure()
-    const { data: selectClass = [], refetch } = useQuery(["selectClass",user?.email], async () => {
-        const res = await axiosSecure(`/selectedClass/${user?.email}`);
-        return res.data  ;
-      });
-      console.log(selectClass);
+    const [axiosSecure] = useAxiosSecure();
+    const { data: classes = [], refetch } = useQuery(["singleClass"], async () => {
+      const res = await axiosSecure(`/approvedClass`);
+      return res.data  ;
+    });
+    const checked = getShoppingCart()
+    const selected = Object.keys(checked)
+    const locData = []
+    selected.forEach(check=>{
+        const supData = classes.filter(checkId => checkId._id === check) 
+        locData.push(...supData)
+    })
     return (
         <div>
             
