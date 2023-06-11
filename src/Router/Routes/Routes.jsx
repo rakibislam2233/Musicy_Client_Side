@@ -14,6 +14,9 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import AddClass from "../../LayOut/Dashboard/Instructor/AddClass";
 import MyClass from "../../LayOut/Dashboard/Instructor/MyClass";
 import Errorpage from "../../Component/Errorpage/Errorpage";
+import MySelectedClass from "../../LayOut/Dashboard/Student/MySelectedClass";
+import MyEnrolledClass from "../../LayOut/Dashboard/Student/MyEnrolledClass";
+import InstructorHome from "../../LayOut/Dashboard/Instructor/InstructorHome";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +52,7 @@ const router = createBrowserRouter([
     errorElement:<Errorpage></Errorpage>,
     children:[
       {
-        path:'',
+        path:'admin',
         element:<AdminHome></AdminHome>
       },
       {
@@ -61,7 +64,8 @@ const router = createBrowserRouter([
         element:<AdminRoute><MangeUser></MangeUser></AdminRoute>
       },
       {
-        path:'instructor/home',
+        path:'instructor',
+        element:<InstructorHome></InstructorHome>
       },
       {
         path:'addClass',
@@ -70,6 +74,18 @@ const router = createBrowserRouter([
       {
         path:'myClass',
         element:<MyClass></MyClass>
+      },
+      {
+        path:'student',
+      },
+      {
+        path:'selectedClass',
+        element:<MySelectedClass></MySelectedClass>
+      }
+      ,
+      {
+        path:'enrolledClass',
+        element:<MyEnrolledClass></MyEnrolledClass>
       }
     ]
   }
