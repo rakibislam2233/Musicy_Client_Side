@@ -18,7 +18,7 @@ const SliderComponent = ({ images }) => {
       >
         <div className="space-y-4">
           <h2 className="text-6xl tracking-wider font-bold text-white">
-            Learn The <span> Music </span> <br />
+            Learn <span className="text-amber-500"> The Music </span> <br />
             From The Masters
           </h2>
           <button
