@@ -10,6 +10,7 @@ import {
 import { useAdmin } from "../../Hook/useAdmin";
 import { useInstructor } from "../../Hook/useInstructor";
 import { UserContext } from "../../Component/Context/AuthProvider";
+import { Toaster } from "react-hot-toast";
 const Dashboard = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -174,6 +175,7 @@ const Dashboard = () => {
         </div>
         
       </div>
+      <Toaster></Toaster>
     </>
   );
 };

@@ -3,6 +3,7 @@ import { HiTrash } from "react-icons/hi";
 import { MdPayment } from "react-icons/md";
 import { removeFromDb } from "../../../utilities/fakedb";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 const SelectedTable = ({ user }) => {
     const [remove,setRemove] = useState(false);
     const deleteClass = id=>{
@@ -42,9 +43,9 @@ const SelectedTable = ({ user }) => {
         <td>{user.availableSeats}</td>
         <td>${user.price}</td>
         <td>
-          <button className=" bg-amber-500 p-2 rounded">
+          <Link to={`/dashboard/payment/${user._id}`}><button className=" bg-amber-500 p-2 rounded">
             <MdPayment className="w-6 h-6"></MdPayment>
-          </button>
+          </button></Link>
         </td>
         <td>
           <button onClick={()=>deleteClass(user._id)} className=" bg-rose-600 p-2 rounded">
