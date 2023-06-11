@@ -1,23 +1,7 @@
-import { useQuery } from "react-query";
-import useAxiosSecure from "../../../Hook/useAxiosSecure";
-import { getShoppingCart } from "../../../utilities/fakedb";
 import SelectedTable from "./SelectedTable";
+import useSelectedClass from "../../../Hook/useSelectedClass";
 const MySelectedClass = () => {
-  const [axiosSecure] = useAxiosSecure();
-  const { data: classes = [], refetch } = useQuery(
-    ["singleClass"],
-    async () => {
-      const res = await axiosSecure(`/approvedClass`);
-      return res.data;
-    }
-  );
-  const checked = getShoppingCart();
-  const selected = Object.keys(checked);
-  const locData = [];
-  selected.forEach((check) => {
-    const supData = classes.filter((checkId) => checkId._id === check);
-    locData.push(...supData);
-  });
+ const locData = useSelectedClass()
   return (
     <>
       {locData.length === 0 ? (
