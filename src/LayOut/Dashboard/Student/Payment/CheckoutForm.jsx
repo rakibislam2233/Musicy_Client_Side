@@ -4,7 +4,8 @@ import { useState } from "react";
 import { UserContext } from "../../../../Component/Context/AuthProvider";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { toast } from "react-hot-toast";
-const CheckoutForm = ({ enrolledClass, price }) => {
+import Swal from "sweetalert2";
+const CheckoutForm = ({enrolledClass,price }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(UserContext);
@@ -33,15 +34,18 @@ const CheckoutForm = ({ enrolledClass, price }) => {
     if (card === null) {
       return;
     }
-    console.log(card);
 
-    const { error } = await stripe.createPaymentMethod({
-      type: "card",
-      card,
-    });
+    const { error,paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card
+    })
 
     if (error) {
-      toast.error(error.message);
+        console.log('error', error)
+        toast.error(error.message);
+    }
+    else {
+        console.log('payment method', paymentMethod)
     }
 
     setProcessing(true);
@@ -56,36 +60,38 @@ const CheckoutForm = ({ enrolledClass, price }) => {
           },
         },
       });
-
+      console.log(paymentIntent);
     if (confirmError) {
         toast.error(confirmError.message);
         console.log(confirmError);
     }
 
-    // console.log('payment intent', paymentIntent)
-    // setProcessing(false)
-    // if (paymentIntent.status === 'succeeded') {
-    //     setTransactionId(paymentIntent.id);
-    //     // save payment information to the server
-    //     const payment = {
-    //         email: user?.email,
-    //         transactionId: paymentIntent.id,
-    //         price,
-    //         date: new Date(),
-    //         quantity: cart.length,
-    //         cartItems: cart.map(item => item._id),
-    //         menuItems: cart.map(item => item.menuItemId),
-    //         status: 'service pending',
-    //         itemNames: cart.map(item => item.name)
-    //     }
-    //     axiosSecure.post('/payments', payment)
-    //         .then(res => {
-    //             console.log(res.data);
-    //             if (res.data.result.insertedId) {
-    //                 // display confirm
-    //             }
-    //         })
-    // }
+    console.log('payment intent', paymentIntent)
+    setProcessing(false)
+    if (paymentIntent.status === 'succeeded') {
+        if(paymentIntent.id){
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Thank You Payment  Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+        }
+        const payment = {
+            email: user?.email,
+            transactionId: paymentIntent.id,
+            price,
+            classId:enrolledClass._id,
+            className:enrolledClass.className,
+            date: new Date(),
+            status: 'service pending',
+        }
+        axiosSecure.post('/payments', payment)
+            .then(res => {
+                
+            })
+    }
   };
 
   return (

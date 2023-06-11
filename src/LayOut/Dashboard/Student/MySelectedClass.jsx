@@ -1,10 +1,24 @@
+import { useContext, useEffect } from "react";
 import SelectedTable from "./SelectedTable";
-import useSelectedClass from "../../../Hook/useSelectedClass";
+import { UserContext } from "../../../Component/Context/AuthProvider";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import { useQuery } from "react-query";
 const MySelectedClass = () => {
- const locData = useSelectedClass()
+  const { user } = useContext(UserContext);
+  const [axiosSecure] = useAxiosSecure();
+  const {
+    data: MySelectedClass = [],
+    refetch,
+    isLoading,
+  } = useQuery(["MySelectedClass",user?.email], async () => {
+    const res = await axiosSecure(
+      `/selectedClass/${user?.email}`
+    );
+    return res.data;
+  });
   return (
     <>
-      {locData.length === 0 ? (
+      {MySelectedClass.length === 0 ? (
         <div><h2 className="text-xl font-semibold">No Data Available</h2></div>
       ) : (
         <>
@@ -28,7 +42,7 @@ const MySelectedClass = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {locData.map((user, i) => <SelectedTable user={user} key={i}></SelectedTable>)}
+                  {MySelectedClass.map((user, i) => <SelectedTable refetch={refetch} user={user} key={i}></SelectedTable>)}
                 </tbody>
               </table>
             </div>

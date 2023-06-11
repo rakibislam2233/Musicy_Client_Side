@@ -77,7 +77,7 @@ const ManageClass = () => {
           {/* head */}
           <thead>
             <tr>
-              <th>ClassImage</th>
+              <th>Image</th>
               <th>ClassName</th>
               <th>InstructorName</th>
               <th>InstructorEmail</th>
