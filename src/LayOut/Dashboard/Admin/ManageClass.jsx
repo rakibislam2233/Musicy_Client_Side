@@ -70,14 +70,13 @@ const ManageClass = () => {
 
   }
   return (
-    <div className="w-full p-4 ">
+    <div className="w-full p-4 h-full ">
       <h2 className="text-3xl font-semibold text-center">Manage Class</h2>
       <div className="overflow-x-auto w-full my-3">
         <table className="table w-full">
           {/* head */}
           <thead>
             <tr>
-              <th>Image</th>
               <th>ClassName</th>
               <th>InstructorName</th>
               <th>InstructorEmail</th>
@@ -93,9 +92,6 @@ const ManageClass = () => {
             {/* row 1 */}
             {addedClass.map((user, i) => (
               <tr>
-                <td>
-                  <img className="w-12 h-12 rounded" src={user.image} alt="" />
-                </td>
                 <td>{user.className}</td>
                 <td>{user.instructorName}</td>
                 <td>{user.instructorEmail}</td>

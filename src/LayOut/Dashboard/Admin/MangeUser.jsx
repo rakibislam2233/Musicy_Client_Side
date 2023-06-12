@@ -4,10 +4,10 @@ import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import { FcBusinessman, FcPortraitMode, FcVoicePresentation } from "react-icons/fc";
 import { useAdmin } from "../../../Hook/useAdmin";
 import { useInstructor } from "../../../Hook/useInstructor";
+import axios from "axios";
 const MangeUser = () => {
   const [axiosSecure] = useAxiosSecure()
-  const [isAdmin] = useAdmin()
-  const [isInstructor] = useInstructor()
+
   const { data: users = [], refetch } = useQuery(["users"], async () => {
     const res = await axiosSecure(`/users`);
     return res.data  ;
@@ -36,7 +36,9 @@ const MangeUser = () => {
       }
     });
   };
-  const handleMakeinstructor= (id) => {
+  const handleMakeinstructor= (user) => {
+    const {_id,email,name,imageUrl} = user;
+    const newUser = {_id,email,name,image:imageUrl};
     Swal.fire({
       title: "Are you sure?",
       text: "Do you want to Make Instructor",
@@ -47,13 +49,10 @@ const MangeUser = () => {
       confirmButtonText: "Yes,Make Instructor",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/instructor/${id}`, {
-          method: "PATCH",
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axios.post(`http://localhost:5000/instructor`,newUser)
+          .then((res) => {
             refetch();
-            if (data.modifiedCount > 0) {
+            if (res.data.result.modifiedCount > 0) {
               Swal.fire("Success", "Make Instructor Successfuly");
             }
           });
@@ -61,7 +60,7 @@ const MangeUser = () => {
     });
   };
   return (
-    <div className="w-full p-5">
+    <div className="w-full p-5 h-full">
       <h2 className="text-3xl font-semibold text-center">Manage User</h2>
       <div className="overflow-x-auto w-full my-3">
         <table className="table w-full">
@@ -118,7 +117,7 @@ const MangeUser = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handleMakeinstructor(user._id)}
+                        onClick={() => handleMakeinstructor(user)}
                         className="p-2 rounded bg-rose-500"
                       >
                         <FcVoicePresentation className="w-6 h-6"></FcVoicePresentation>

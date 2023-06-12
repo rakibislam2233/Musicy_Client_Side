@@ -1,11 +1,10 @@
 
+import { useAdmin } from "../../../../Hook/useAdmin";
+import { useInstructor } from "../../../../Hook/useInstructor";
 import Container from "../Container";
 // import DropDown from "./DropDown";
 import Logo from "./Logo";
 import NaviBarLink from "./NaviBarLink";
-
-
-
 const Navbar = () => {
   return (
     <div className='fixed w-full bg-emerald-500  z-10  p-5'>

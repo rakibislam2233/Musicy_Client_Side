@@ -12,6 +12,8 @@ export const UserContext = createContext(null);
 import { GoogleAuthProvider } from "firebase/auth";
 import app from "../../Firebase";
 import axios from "axios";
+import { useAdmin } from "../../Hook/useAdmin";
+import { useInstructor } from "../../Hook/useInstructor";
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
