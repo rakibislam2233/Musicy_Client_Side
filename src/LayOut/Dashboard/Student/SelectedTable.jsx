@@ -16,13 +16,8 @@ const SelectedTable = ({ user,refetch }) => {
       confirmButtonText: "Yes,Delete Class",
     }).then((result) => {
       if (result.isConfirmed) {
-        // fetch(`localhost:5000/selectedClassDelete/${id}`,{
-        //   method: "DELETE",
-        // })
-        // .then(res=>res.json())
         axios.delete(`http://localhost:5000/deletedClass/${id}`)
         .then(res=>{
-          console.log(res.data);
           refetch()
           if(res.data.deletedCount>0){
             Swal.fire({
@@ -40,6 +35,7 @@ const SelectedTable = ({ user,refetch }) => {
   return (
     <>
       {
+     
         <tr>
           <td>
             <img className="w-12 h-12 rounded" src={user.image} alt="" />
@@ -52,7 +48,8 @@ const SelectedTable = ({ user,refetch }) => {
           <td>
             <Link
               to={`/dashboard/payment/${user._id}`}
-              state={{ enrolledClass: user }}
+              state={{ enrolledClass:user}}
+             
             >
               <button className=" bg-amber-500 p-2 rounded">
                 <MdPayment className="w-6 h-6"></MdPayment>

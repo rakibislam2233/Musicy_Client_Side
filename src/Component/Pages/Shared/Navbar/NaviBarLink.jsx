@@ -3,6 +3,8 @@ import { UserContext } from "../../../Context/AuthProvider";
 import { useContext, useState } from "react";
 import Logo from "./Logo";
 import {HiMenuAlt3} from "react-icons/hi";
+import { useAdmin } from "../../../../Hook/useAdmin";
+import { useInstructor } from "../../../../Hook/useInstructor";
 const NaviBarLink = () => {
   const { user, logOut } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +51,7 @@ const NaviBarLink = () => {
         {user ? (
           <>
             <NavLink
-              to="dashboard"
+              to={`dashboard`}
               className={({ isActive }) =>
                 isActive
                   ? " text-[#FF7703] px-4 py-3 font-semibold"

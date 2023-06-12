@@ -20,7 +20,7 @@ const AddClass = () => {
     .then(res=>{
       const imageUrl = res.data.data.display_url;
       const {className,instructorName,instructorEmail,price,availableSeats} = data;
-      const classData = {className,instructorName,image:imageUrl,price ,availableSeats,instructorEmail,status:'Pending'};
+      const classData = {className,instructorName,image:imageUrl,price ,availableSeats:parseInt(availableSeats),instructorEmail,status:'Pending'};
       axios.post(`http://localhost:5000/instructor/addClass`, classData)
       .then(res=>{
         if(res.data.insertedId){

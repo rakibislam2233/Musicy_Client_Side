@@ -5,14 +5,15 @@ import { UserContext } from "../../../../Component/Context/AuthProvider";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const CheckoutForm = ({enrolledClass,price }) => {
+  const  Navigate = useNavigate()
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(UserContext);
   const [axiosSecure] = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
     if (price > 0) {
@@ -25,7 +26,7 @@ const CheckoutForm = ({enrolledClass,price }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const form = event.target;
     if (!stripe || !elements) {
       return;
     }
@@ -70,6 +71,7 @@ const CheckoutForm = ({enrolledClass,price }) => {
     setProcessing(false)
     if (paymentIntent.status === 'succeeded') {
         if(paymentIntent.id){
+            form.reset()
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -79,18 +81,22 @@ const CheckoutForm = ({enrolledClass,price }) => {
               });
         }
         const payment = {
-            email: user?.email,
+            userEmail: user?.email,
             transactionId: paymentIntent.id,
             price,
+            image:enrolledClass.image,
+            selectedId:enrolledClass.selectedId,
             classId:enrolledClass._id,
             className:enrolledClass.className,
+            instructorName:enrolledClass.instructorName,
+            paymentStatus:"successful",
             date: new Date(),
-            status: 'service pending',
         }
         axiosSecure.post('/payments', payment)
             .then(res => {
-                
+                console.log(res.data);
             })
+      Navigate('/dashboard')
     }
   };
 
@@ -123,11 +129,6 @@ const CheckoutForm = ({enrolledClass,price }) => {
           Pay Now
         </button>
       </form>
-      {transactionId && (
-        <p className="text-green-500">
-          Transaction complete with transactionId: {transactionId}
-        </p>
-      )}
     </>
   );
 };
