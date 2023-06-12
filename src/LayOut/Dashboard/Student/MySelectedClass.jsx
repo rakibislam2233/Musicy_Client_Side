@@ -22,7 +22,7 @@ const MySelectedClass = () => {
         <div><h2 className="text-xl font-semibold">No Data Available</h2></div>
       ) : (
         <>
-          <div className="w-full p-5">
+          <div className="w-full p-5 h-full">
             <h3 className="text-3xl font-semibold text-center">
               My Selected Classes
             </h3>

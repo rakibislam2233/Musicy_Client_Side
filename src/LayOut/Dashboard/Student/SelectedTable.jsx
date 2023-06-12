@@ -16,7 +16,7 @@ const SelectedTable = ({ user,refetch }) => {
       confirmButtonText: "Yes,Delete Class",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/deletedClass/${id}`)
+        axios.delete(`https://musicy-server-side.vercel.app/deletedClass/${id}`)
         .then(res=>{
           refetch()
           if(res.data.deletedCount>0){

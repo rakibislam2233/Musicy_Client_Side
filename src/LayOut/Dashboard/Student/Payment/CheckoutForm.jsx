@@ -5,17 +5,17 @@ import { UserContext } from "../../../../Component/Context/AuthProvider";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
-import moment from 'moment';
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
-const CheckoutForm = ({enrolledClass,price }) => {
-  const  Navigate = useNavigate()
+const CheckoutForm = ({ enrolledClass, price }) => {
+  const Navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useContext(UserContext);
   const [axiosSecure] = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-  const date = moment().format('MMMM Do YYYY, h:mm:ss a')
+  const date = moment().format("MMMM Do YYYY, h:mm:ss a");
   useEffect(() => {
     if (price > 0) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
@@ -37,17 +37,16 @@ const CheckoutForm = ({enrolledClass,price }) => {
       return;
     }
 
-    const { error,paymentMethod } = await stripe.createPaymentMethod({
-        type: 'card',
-        card
-    })
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
 
     if (error) {
-        console.log('error', error)
-        toast.error(error.message);
-    }
-    else {
-        console.log('payment method', paymentMethod)
+      console.log("error", error);
+      toast.error(error.message);
+    } else {
+      console.log("payment method", paymentMethod);
     }
 
     setProcessing(true);
@@ -62,42 +61,41 @@ const CheckoutForm = ({enrolledClass,price }) => {
           },
         },
       });
-      console.log(paymentIntent);
+    console.log(paymentIntent);
     if (confirmError) {
-        toast.error(confirmError.message);
-        console.log(confirmError);
+      toast.error(confirmError.message);
+      console.log(confirmError);
     }
 
-    console.log('payment intent', paymentIntent)
-    setProcessing(false)
-    if (paymentIntent.status === 'succeeded') {
-        if(paymentIntent.id){
-            form.reset()
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Thank You Payment  Successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-        }
-        const payment = {
-            userEmail: user?.email,
-            transactionId: paymentIntent.id,
-            price,
-            image:enrolledClass.image,
-            selectedId:enrolledClass.selectedId,
-            classId:enrolledClass._id,
-            className:enrolledClass.className,
-            instructorName:enrolledClass.instructorName,
-            paymentStatus:"successful",
-            date
-        }
-        axiosSecure.post('/payments', payment)
-            .then(res => {
-                console.log(res.data);
-            })
-      Navigate('/dashboard/student')
+    console.log("payment intent", paymentIntent);
+    setProcessing(false);
+    if (paymentIntent.status === "succeeded") {
+      if (paymentIntent.id) {
+        form.reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Thank You Payment  Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      const payment = {
+        userEmail: user?.email,
+        transactionId: paymentIntent.id,
+        price,
+        image: enrolledClass.image,
+        selectedId: enrolledClass.selectedId,
+        classId: enrolledClass._id,
+        className: enrolledClass.className,
+        instructorName: enrolledClass.instructorName,
+        paymentStatus: "successful",
+        date,
+      };
+      axiosSecure.post("/payments", payment).then((res) => {
+        console.log(res.data);
+      });
+      Navigate("/dashboard/student");
     }
   };
 

@@ -7,7 +7,7 @@ import { UserContext } from "../../Context/AuthProvider";
 
 const ClassesDetails = ({ singleClass }) => {
   const { user } = useContext(UserContext);
-  const { _id, image, instructorName, availableSeats, price, className } =
+  const {image, instructorName, availableSeats, price, className } =
     singleClass;
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
@@ -24,7 +24,7 @@ const ClassesDetails = ({ singleClass }) => {
       userEmail: user?.email,
     };
     axios
-      .post(`http://localhost:5000/selectedClassData`, newData)
+      .post(`https://musicy-server-side.vercel.app/selectedClassData`, newData)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
@@ -77,7 +77,6 @@ const ClassesDetails = ({ singleClass }) => {
                 </>
               ) : (
                 <>
-                  {" "}
                   <button
                     onClick={() => bookingClass(singleClass)}
                     className="py-2 px-5 bg-amber-500 text-white rounded-xl hover:bg-amber-400 transition duration-500"

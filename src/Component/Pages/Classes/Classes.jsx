@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import Container from "../Shared/Container";
 import ClassesDetails from "./ClassesDetails";
 import axios from "axios";
-import { useQuery } from "react-query";
-import useAxiosSecure from "../../../Hook/useAxiosSecure";
-
 const Classes = () => {
-  const [axiosSecure] = useAxiosSecure();
-  const { data: classes = [], refetch } = useQuery(["singleClass"], async () => {
-    const res = await axiosSecure(`/approvedClass`);
-    return res.data  ;
-  });
+  const [classes,setClasses] = useState([]);
+  useEffect(()=>{
+    axios.get(`https://musicy-server-side.vercel.app/approvedClass`)
+    .then(res=>{
+      setClasses(res.data)
+    })
+  },[])
   return (
     <Container>
       <div className="pt-20">

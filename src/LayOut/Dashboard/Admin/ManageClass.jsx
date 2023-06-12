@@ -20,7 +20,7 @@ const ManageClass = () => {
   });
   // TODO:Modal open to set feedback
   const updateRole = id=>{
-    axios.patch(`http://localhost:5000/manageUsersRole/${id}`)
+    axios.patch(`https://musicy-server-side.vercel.app/manageUsersRole/${id}`)
     .then(res=>{
       refetch()
       if(res.data.modifiedCount>0){
@@ -45,7 +45,7 @@ const ManageClass = () => {
 
   }
   const updateRoleDeny = id=>{
-    axios.patch(`http://localhost:5000/manageUsersRoleDeny/${id}`)
+    axios.patch(`https://musicy-server-side.vercel.app/manageUsersRoleDeny/${id}`)
     .then(res=>{
       refetch()
       if(res.data.modifiedCount>0){

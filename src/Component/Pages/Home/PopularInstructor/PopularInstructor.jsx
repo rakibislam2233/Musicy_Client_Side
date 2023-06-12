@@ -6,7 +6,7 @@ const PopularInstructor = () => {
     const instructor = getInstructorData();
 
     return (
-  <div className="pt-20">
+  <div className="py-5">
        <h2 className="text-center font-semibold text-3xl py-2">Popular  Instructor</h2>
        <div className="w-full grid grid-cols-3 gap-5 py-5">
         {

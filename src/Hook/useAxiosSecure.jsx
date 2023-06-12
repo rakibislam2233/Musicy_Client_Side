@@ -9,7 +9,7 @@ const useAxiosSecure = () => {
   const navigate = useNavigate(); 
 
   const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000', 
+    baseURL: 'https://musicy-server-side.vercel.app', 
   });
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
