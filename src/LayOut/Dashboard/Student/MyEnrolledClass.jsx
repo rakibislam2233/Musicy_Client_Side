@@ -26,6 +26,7 @@ const MyEnrolledClass = () => {
           <thead>
             <tr>
               <th>Image</th>
+              <th>UserEmail</th>
               <th>ClassName</th>
               <th>InstructorName</th>
               <th>Price</th>
@@ -37,6 +38,7 @@ const MyEnrolledClass = () => {
             {enrolled?.map((user, i) => (
               <tr>
                 <td><img className='w-12 h-12 rounded' src={user.image} alt="" /></td>
+                <td>{user.userEmail}</td>
                 <td>{user.className}</td>
                 <td>{user.instructorName}</td>
                 <td>${user.price}</td>

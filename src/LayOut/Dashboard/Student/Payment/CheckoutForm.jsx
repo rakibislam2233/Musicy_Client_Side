@@ -5,6 +5,7 @@ import { UserContext } from "../../../../Component/Context/AuthProvider";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { toast } from "react-hot-toast";
 import Swal from "sweetalert2";
+import moment from 'moment';
 import { useNavigate } from "react-router-dom";
 const CheckoutForm = ({enrolledClass,price }) => {
   const  Navigate = useNavigate()
@@ -14,7 +15,7 @@ const CheckoutForm = ({enrolledClass,price }) => {
   const [axiosSecure] = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-
+  const date = moment().format('MMMM Do YYYY, h:mm:ss a')
   useEffect(() => {
     if (price > 0) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
@@ -90,13 +91,13 @@ const CheckoutForm = ({enrolledClass,price }) => {
             className:enrolledClass.className,
             instructorName:enrolledClass.instructorName,
             paymentStatus:"successful",
-            date: new Date(),
+            date
         }
         axiosSecure.post('/payments', payment)
             .then(res => {
                 console.log(res.data);
             })
-      Navigate('/dashboard')
+      Navigate('/dashboard/student')
     }
   };
 

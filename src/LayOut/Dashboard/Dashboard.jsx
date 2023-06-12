@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   HiAcademicCap,
   HiBookOpen,
+  HiClipboard,
   HiHome,
   HiOutlineViewBoards,
   HiUsers,
@@ -163,6 +164,18 @@ const Dashboard = () => {
                     <span className="flex items-center gap-1">
                       <HiOutlineViewBoards></HiOutlineViewBoards>Enrolled
                       Class
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/dashboard/paymentHistory"
+                    className={({ isActive }) =>
+                      isActive ? " mx-5 px-2" : "mx-5 px-2"
+                    }
+                  >
+                    <span className="flex items-center gap-1">
+                      <HiClipboard></HiClipboard>Payment History
                     </span>
                   </NavLink>
                 </li>

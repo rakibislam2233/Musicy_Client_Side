@@ -19,7 +19,7 @@ const Instructor = () => {
     <Container>
       <div className="pt-20">
        <h2 className="text-center font-semibold text-3xl py-5">All Instructor</h2>
-       <div className="w-full grid grid-cols-3 gap-5">
+       <div className="w-full grid grid-cols-3 gap-5 py-5">
         {
          instructor.map(instructor=><InstructorDetails instructor={instructor}></InstructorDetails>)
         }

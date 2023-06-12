@@ -9,7 +9,6 @@ const Payment = () => {
     const  enrolledClass = location.state.enrolledClass;
     const price = enrolledClass.price
     const amount = parseFloat(price)
-
     return (
         <div className='w-full p-10'>
             <h3 className='text-3xl font-semibold text-center'>Please Confirm Your Payment </h3>

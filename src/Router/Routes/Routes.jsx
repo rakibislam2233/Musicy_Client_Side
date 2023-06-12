@@ -19,6 +19,8 @@ import MyEnrolledClass from "../../LayOut/Dashboard/Student/MyEnrolledClass";
 import InstructorHome from "../../LayOut/Dashboard/Instructor/InstructorHome";
 import InstructorRoute from "../InstructorRoute/InstructorRoute";
 import Payment from "../../LayOut/Dashboard/Student/Payment/Payment";
+import Student from "../../LayOut/Dashboard/Student/Student";
+import PaymentHistory from "../../LayOut/Dashboard/Student/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +81,7 @@ const router = createBrowserRouter([
       },
       {
         path:'student',
+        element:<Student></Student>
       },
       {
         path:'selectedClass',
@@ -93,6 +96,10 @@ const router = createBrowserRouter([
       {
         path:'enrolledClass',
         element:<MyEnrolledClass></MyEnrolledClass>
+      },
+      {
+        path:'paymentHistory',
+        element:<PaymentHistory></PaymentHistory>
       }
     ]
   }
