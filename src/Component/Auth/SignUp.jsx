@@ -47,7 +47,7 @@ const SignUp = () => {
             photoURL:imageUrl
           })
           const userInfo = {name,email,imageUrl}
-          fetch(`https://musicy-server-side.vercel.app/users/${email}`,{
+          fetch(`http://localhost:5000/users/${email}`,{
             method:"PUT",
             headers:{
               'content-type': 'application/json'
@@ -56,7 +56,7 @@ const SignUp = () => {
           })
           .then(res=>res.json())
           .then(data=>{
-            console.log(data);
+            (data);
               Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -72,7 +72,7 @@ const SignUp = () => {
           })
         })
         .catch((err) => {
-          console.log(err.message);
+          (err.message);
           toast.error(err.message)
         })
       });
@@ -82,7 +82,7 @@ const SignUp = () => {
     .then((result) => {
       const user = result.user;
       const userInfo = {name:user.displayName,email:user?.email,imageUrl:user.photoURL}
-      fetch(`https://musicy-server-side.vercel.app/users/${user?.email}`,{
+      fetch(`http://localhost:5000/users/${user?.email}`,{
         method:"PUT",
         headers:{
           'content-type': 'application/json'
@@ -107,7 +107,7 @@ const SignUp = () => {
       })
     })
     .catch((err) => {
-      console.log(err.message);
+      (err.message);
       toast.error(err.message)
     })
   }
@@ -160,7 +160,7 @@ const SignUp = () => {
                   required: true,
                   minLength: 6,
                   maxLength: 15,
-                  // pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
               />
               {errors.password?.type === "required" && (
@@ -178,12 +178,12 @@ const SignUp = () => {
                   Password must be less then 15 characters
                 </span>
               )}
-              {/* {errors.password?.type === "pattern" && (
+              {errors.password?.type === "pattern" && (
                 <p className="text-rose-500">
                   Password must have one Uppercase one lower case, one number
                   and one special character.
                 </p>
-              )} */}
+              )}
             </div>
             <div>
               <label htmlFor="password" className="block mb-2 text-sm">

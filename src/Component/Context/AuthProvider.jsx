@@ -12,8 +12,6 @@ export const UserContext = createContext(null);
 import { GoogleAuthProvider } from "firebase/auth";
 import app from "../../Firebase";
 import axios from "axios";
-import { useAdmin } from "../../Hook/useAdmin";
-import { useInstructor } from "../../Hook/useInstructor";
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,8 +32,9 @@ const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
+      setUser(loggedUser);
       if(loggedUser){
-        axios.post('https://musicy-server-side.vercel.app/jwt',{email:loggedUser.email})
+        axios.post('http://localhost:5000/jwt',{email:loggedUser.email})
         .then(data=>{
           localStorage.setItem('jwt_token',data.data);
           setLoading(false);
@@ -45,7 +44,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('jwt_token')
       }
       
-      setUser(loggedUser);
+    
  
     });
     return () => {

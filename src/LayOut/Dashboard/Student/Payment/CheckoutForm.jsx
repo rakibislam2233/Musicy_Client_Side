@@ -19,7 +19,7 @@ const CheckoutForm = ({ enrolledClass, price }) => {
   useEffect(() => {
     if (price > 0) {
       axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-        console.log(res.data.clientSecret);
+        (res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
     }
@@ -43,10 +43,10 @@ const CheckoutForm = ({ enrolledClass, price }) => {
     });
 
     if (error) {
-      console.log("error", error);
+      ("error", error);
       toast.error(error.message);
     } else {
-      console.log("payment method", paymentMethod);
+      ("payment method", paymentMethod);
     }
 
     setProcessing(true);
@@ -61,13 +61,13 @@ const CheckoutForm = ({ enrolledClass, price }) => {
           },
         },
       });
-    console.log(paymentIntent);
+    (paymentIntent);
     if (confirmError) {
       toast.error(confirmError.message);
-      console.log(confirmError);
+      (confirmError);
     }
 
-    console.log("payment intent", paymentIntent);
+    ("payment intent", paymentIntent);
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
       if (paymentIntent.id) {
@@ -93,7 +93,7 @@ const CheckoutForm = ({ enrolledClass, price }) => {
         date,
       };
       axiosSecure.post("/payments", payment).then((res) => {
-        console.log(res.data);
+        (res.data);
       });
       Navigate("/dashboard/student");
     }

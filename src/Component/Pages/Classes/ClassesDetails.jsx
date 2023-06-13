@@ -1,20 +1,28 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useAdmin } from "../../../Hook/useAdmin";
-import { useInstructor } from "../../../Hook/useInstructor";
 import { useContext } from "react";
 import { UserContext } from "../../Context/AuthProvider";
-
+import { useAdmin } from "../../../Hook/useAdmin";
+import { useInstructor } from "../../../Hook/useInstructor";
 const ClassesDetails = ({ singleClass }) => {
   const { user } = useContext(UserContext);
-  const {image, instructorName, availableSeats, price, className } =
+  const [isAdmin] = useAdmin()
+  const [isInstructor] = useInstructor()
+  const { image, instructorName, availableSeats, price, className } =
     singleClass;
-  const [isAdmin] = useAdmin();
-  const [isInstructor] = useInstructor();
   const bookingClass = (data) => {
-    const { _id, image, instructorName, availableSeats, price, className } =
+    if (!user) {
+   Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You have to log in first to booking class",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+      return
+    } 
+  const { _id, image, instructorName, availableSeats, price, className } =
       data;
-    const newData = {
+  const newData = {
       selectedId: _id,
       image,
       instructorName,
@@ -24,9 +32,9 @@ const ClassesDetails = ({ singleClass }) => {
       userEmail: user?.email,
     };
     axios
-      .post(`https://musicy-server-side.vercel.app/selectedClassData`, newData)
+      .post(`http://localhost:5000/selectedClassData`, newData)
       .then((res) => {
-        console.log(res.data);
+        res.data;
         if (res.data.insertedId) {
           Swal.fire({
             position: "center",
@@ -40,7 +48,7 @@ const ClassesDetails = ({ singleClass }) => {
   };
   return (
     <>
-      {availableSeats === 0 ? (
+      {availableSeats <= 0? (
         <>
           <div className="cursor-pointer bg-rose-600 border p-3 rounded-2xl">
             <div className=" space-y-2 font-semibold">
@@ -64,7 +72,7 @@ const ClassesDetails = ({ singleClass }) => {
               </div>
               <div className="font-semibold text-2xl">{className}</div>
               <div className="">Instructor : {instructorName}</div>
-              <h2>Available seats : {availableSeats}</h2>
+              <h2>Available seats : {availableSeats<=0?0:availableSeats}</h2>
               <h2>Price : ${price}</h2>
               {isAdmin || isInstructor || availableSeats === 0 ? (
                 <>
@@ -110,11 +118,12 @@ const ClassesDetails = ({ singleClass }) => {
                   alt="Room"
                 />
               </div>
+              {/* isAdmin || isInstructor ||  */}
               <div className="font-semibold text-2xl">{className}</div>
               <div className="">Instructor : {instructorName}</div>
-              <h2>Available seats : {availableSeats}</h2>
+              <h2>Available seats : {availableSeats<=0?0:availableSeats}</h2>
               <h2>Price : ${price}</h2>
-              {isAdmin || isInstructor || availableSeats === 0 ? (
+              {isAdmin || isInstructor ||availableSeats === 0 ? (
                 <>
                   <button
                     disabled

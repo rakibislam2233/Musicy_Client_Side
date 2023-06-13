@@ -23,7 +23,7 @@ const MangeUser = () => {
       confirmButtonText: "Yes,Make Admin",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://musicy-server-side.vercel.app/admin/${id}`, {
+        fetch(`http://localhost:5000/admin/${id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())
@@ -49,7 +49,7 @@ const MangeUser = () => {
       confirmButtonText: "Yes,Make Instructor",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post(`https://musicy-server-side.vercel.app/instructor`,newUser)
+        axios.post(`http://localhost:5000/instructor`,newUser)
           .then((res) => {
             refetch();
             if (res.data.result.modifiedCount > 0) {
@@ -78,7 +78,7 @@ const MangeUser = () => {
           <tbody>
             {/* row 1 */}
             {users.map((user, i) => (
-              <tr>
+              <tr key={i}>
                 <td>
                   <img
                     className="w-12 h-12 rounded-full"

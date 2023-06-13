@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const InstructorDetails = ({ instructor }) => {
   const { name, email, image } = instructor;
   return (
-    <div className="cursor-pointer group  border p-2 rounded-2xl">
+    <div className="cursor-pointer group  border p-2 pb-5 rounded-2xl">
       <div className="flex flex-col gap-2 w-full">
         <div
           className="
@@ -36,6 +37,7 @@ const InstructorDetails = ({ instructor }) => {
         <div className="font-light text-neutral-500">
          {email}
         </div>
+        <Link to='/classes'><button className="bg-amber-500 text-white py-2 px-5 rounded-xl font-semibold">See Class</button></Link>
       </div>
     </div>
   );

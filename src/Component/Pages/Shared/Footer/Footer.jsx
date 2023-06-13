@@ -9,9 +9,9 @@ import {
 
 const Footer = () => {
   return (
-    <section class="p-16 bg-emerald-500 ">
-      <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
-        <div class="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-12">
+    <section className=" p-5 md:p-16 bg-emerald-500 ">
+      <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+        <div className="grid grid-cols-1 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-12">
           <div>
             <Logo></Logo>
             <ul className="mt-5 text-white space-y-4">
@@ -33,8 +33,8 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <p class="font-semibold">Quick Links</p>
-            <ul class="mt-5  space-y-4 text-white">
+            <p className="font-semibold">Quick Links</p>
+            <ul className="mt-5  space-y-4 text-white">
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
@@ -53,8 +53,8 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <p class="font-semibold">Useful Links</p>
-            <ul class="mt-5  space-y-4 text-white">
+            <p className="font-semibold">Useful Links</p>
+            <ul className="mt-5  space-y-4 text-white">
               <li>
                 <Link to={"/"}>Privacy Policy</Link>
               </li>
@@ -73,8 +73,8 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <p class="font-semibold">Work Hours</p>
-            <ul class="mt-5  space-y-4 text-white">
+            <p className="font-semibold">Work Hours</p>
+            <ul className="mt-5  space-y-4 text-white">
               <li>
                 <span className="flex gap-1 items-center">
                   <HiColorSwatch></HiColorSwatch>9 AM - 5 PM , Monday - Saturday
@@ -86,10 +86,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <hr class="mt-16 mb-10 border-gray-800" />
+        <hr className="mt-16 mb-10 border-gray-800" />
 
-        <div class="flex flex-wrap items-center justify-center">
-          <p class="w-full mt-8 text-sm text-center text-gray-100 md:mt-0 md:w-auto md:order-2">
+        <div className="flex flex-wrap items-center justify-center">
+          <p className="w-full mt-8 text-sm text-center text-gray-100 md:mt-0 md:w-auto md:order-2">
             © Copyright 2021, All Rights Reserved by Postcraft
           </p>
         </div>

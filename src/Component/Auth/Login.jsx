@@ -23,7 +23,7 @@ const Login = () => {
     login(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        (user);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -35,7 +35,7 @@ const Login = () => {
         naviget(from, { replace: true })
       })
       .catch((err) => {
-        console.log(err.message);
+        (err.message);
         toast.error(err.message);
       });
   };
@@ -44,7 +44,7 @@ const Login = () => {
     .then((result) => {
       const user = result.user;
       const userInfo = {name:user.displayName,email:user?.email,imageUrl:user.photoURL}
-      fetch(`https://musicy-server-side.vercel.app/users/${user?.email}`,{
+      fetch(`http://localhost:5000/users/${user?.email}`,{
         method:"PUT",
         headers:{
           'content-type': 'application/json'
@@ -69,7 +69,7 @@ const Login = () => {
       })
     })
     .catch((err) => {
-      console.log(err.message);
+      (err.message);
       toast.error(err.message)
     })
   }

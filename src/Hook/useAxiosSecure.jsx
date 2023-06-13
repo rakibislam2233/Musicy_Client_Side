@@ -1,19 +1,19 @@
-import { useContext, useEffect } from 'react';
 import axios from 'axios';
+import useAuth from './useAuth';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../Component/Context/AuthProvider';
 
 
 const useAxiosSecure = () => {
-  const { logOut } = useContext(UserContext) 
+  const { logOut } = useAuth()
   const navigate = useNavigate(); 
-
   const axiosSecure = axios.create({
-    baseURL: 'https://musicy-server-side.vercel.app', 
+    baseURL: 'http://localhost:5000/', 
   });
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
       const token = localStorage.getItem('jwt_token');
+      (token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

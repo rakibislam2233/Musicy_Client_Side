@@ -8,12 +8,12 @@ const MyClass = () => {
     const {user} = useContext(UserContext)
     const [axiosSecure] = useAxiosSecure()
   const { data: addedClass = [], refetch,isLoading} = useQuery(["myClass",user?.email], async () => {
-    const res = await axiosSecure(`https://musicy-server-side.vercel.app/instructor/myClass/${user?.email}`);
+    const res = await axiosSecure(`http://localhost:5000/instructor/myClass/${user?.email}`);
     return res.data  ;
   })
   // TODO:Total Enrolled Students and Feedback
     return (
-        <div className='w-full p-5'>
+        <div className='w-full p-5 h-full'>
             <h3 className='text-3xl font-semibold text-center'>My Classes</h3>
             <div className="overflow-x-auto w-full my-3">
         <table className="table w-full">

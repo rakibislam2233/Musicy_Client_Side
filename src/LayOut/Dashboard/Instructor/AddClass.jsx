@@ -21,7 +21,7 @@ const AddClass = () => {
       const imageUrl = res.data.data.display_url;
       const {className,instructorName,instructorEmail,price,availableSeats} = data;
       const classData = {className,instructorName,image:imageUrl,price ,availableSeats:parseInt(availableSeats),instructorEmail,status:'Pending'};
-      axios.post(`https://musicy-server-side.vercel.app/instructor/addClass`, classData)
+      axios.post(`http://localhost:5000/instructor/addClass`, classData)
       .then(res=>{
         if(res.data.insertedId){
           Swal.fire({

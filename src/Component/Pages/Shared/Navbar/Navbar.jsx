@@ -1,6 +1,4 @@
 
-import { useAdmin } from "../../../../Hook/useAdmin";
-import { useInstructor } from "../../../../Hook/useInstructor";
 import Container from "../Container";
 // import DropDown from "./DropDown";
 import Logo from "./Logo";

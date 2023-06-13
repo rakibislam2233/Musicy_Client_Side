@@ -7,7 +7,7 @@ const PaymentHistory = () => {
   const [enrolled, setEnrolled] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://musicy-server-side.vercel.app/enrolledClass/${user?.email}`)
+      .get(`http://localhost:5000/enrolledClass/${user?.email}`)
       .then((res) => {
         setEnrolled(res.data);
       });
