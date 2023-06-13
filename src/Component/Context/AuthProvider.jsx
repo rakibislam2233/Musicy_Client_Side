@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
       setUser(loggedUser);
       if(loggedUser){
-        axios.post('http://localhost:5000/jwt',{email:loggedUser.email})
+        axios.post('https://musicy-server-side.vercel.app/jwt',{email:loggedUser.email})
         .then(data=>{
           localStorage.setItem('jwt_token',data.data);
           setLoading(false);

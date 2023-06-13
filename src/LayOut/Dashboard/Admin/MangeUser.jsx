@@ -23,7 +23,7 @@ const MangeUser = () => {
       confirmButtonText: "Yes,Make Admin",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/admin/${id}`, {
+        fetch(`https://musicy-server-side.vercel.app/admin/${id}`, {
           method: "PATCH",
         })
           .then((res) => res.json())
@@ -49,7 +49,7 @@ const MangeUser = () => {
       confirmButtonText: "Yes,Make Instructor",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post(`http://localhost:5000/instructor`,newUser)
+        axios.post(`https://musicy-server-side.vercel.app/instructor`,newUser)
           .then((res) => {
             refetch();
             if (res.data.result.modifiedCount > 0) {

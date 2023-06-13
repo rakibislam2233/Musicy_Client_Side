@@ -8,7 +8,7 @@ const MyClass = () => {
     const {user} = useContext(UserContext)
     const [axiosSecure] = useAxiosSecure()
   const { data: addedClass = [], refetch,isLoading} = useQuery(["myClass",user?.email], async () => {
-    const res = await axiosSecure(`http://localhost:5000/instructor/myClass/${user?.email}`);
+    const res = await axiosSecure(`https://musicy-server-side.vercel.app/instructor/myClass/${user?.email}`);
     return res.data  ;
   })
   // TODO:Total Enrolled Students and Feedback
@@ -37,10 +37,10 @@ const MyClass = () => {
                 <td><img className='w-12 h-12 rounded' src={user.image} alt="" /></td>
                 <td>{user.className}</td>
                 <td>${user.price}</td>
-                <td>{user.availableSeats}</td>
+                <td>{user.availableSeats>=0?user.availableSeats:0}</td>
                 <td className='font-semibold'>{user.status}</td>
-                <td>40</td>
-                <td>Something is worng</td>
+                <td>{user.enrolled}</td>
+                <td>Nothing</td>
                 <td>
                   <button className=' bg-rose-600 p-2 rounded'><HiPencilAlt className='w-6 h-6'></HiPencilAlt></button>
                 </td>

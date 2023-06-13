@@ -21,7 +21,7 @@ const Details = ({ singleClass }) => {
       userEmail: user?.email,
     };
     axios
-      .post(`http://localhost:5000/selectedClassData`, newData)
+      .post(`https://musicy-server-side.vercel.app/selectedClassData`, newData)
       .then((res) => {
         res.data;
         if (res.data.insertedId) {

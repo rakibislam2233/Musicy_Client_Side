@@ -47,7 +47,7 @@ const SignUp = () => {
             photoURL:imageUrl
           })
           const userInfo = {name,email,imageUrl}
-          fetch(`http://localhost:5000/users/${email}`,{
+          fetch(`https://musicy-server-side.vercel.app/users/${email}`,{
             method:"PUT",
             headers:{
               'content-type': 'application/json'
@@ -82,7 +82,7 @@ const SignUp = () => {
     .then((result) => {
       const user = result.user;
       const userInfo = {name:user.displayName,email:user?.email,imageUrl:user.photoURL}
-      fetch(`http://localhost:5000/users/${user?.email}`,{
+      fetch(`https://musicy-server-side.vercel.app/users/${user?.email}`,{
         method:"PUT",
         headers:{
           'content-type': 'application/json'

@@ -5,7 +5,7 @@ import { Fade, Flip, Hinge, JackInTheBox, Roll, Slide } from "react-awesome-reve
 const PopularClasses = () => {
   const [popularClasses, setpopularClasses] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/approvedClass`)
+    fetch(`https://musicy-server-side.vercel.app/approvedClass`)
       .then((res) => res.json())
       .then((data) => {
         const filter = data.filter((dt) => dt.enrolled >= 2);

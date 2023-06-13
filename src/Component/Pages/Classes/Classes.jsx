@@ -5,7 +5,7 @@ import axios from "axios";
 const Classes = () => {
   const [classes,setClasses] = useState([]);
   useEffect(()=>{
-    axios.get(`http://localhost:5000/approvedClass`)
+    axios.get(`https://musicy-server-side.vercel.app/approvedClass`)
     .then(res=>{
       setClasses(res.data)
     })
