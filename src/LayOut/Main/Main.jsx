@@ -5,12 +5,12 @@ import Footer from "../../Component/Pages/Shared/Footer/Footer";
 
 const Main = () => {
     return (
-        <>
+        <div className="overflow-hidden">
            <Navbar></Navbar>
            <Outlet></Outlet>
            <Footer></Footer>
            <Toaster />
-        </>
+        </div>
     );
 };
 

@@ -5,7 +5,6 @@ import useAxiosSecure from "./useAxiosSecure";
 
 export const useInstructor = () => {
     const {user,loading} = useContext(UserContext);
-    (user);
     const [axiosSecure] = useAxiosSecure()
     const {data:isInstructor=[],isLoading:isInstructorLoading} = useQuery({
         queryKey:['isInstructor', user?.email],
@@ -17,4 +16,3 @@ export const useInstructor = () => {
     })
     return [isInstructor,isInstructorLoading]
 };
-

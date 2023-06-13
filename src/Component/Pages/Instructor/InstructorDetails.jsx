@@ -1,9 +1,11 @@
 import React from "react";
+import { JackInTheBox, Roll, Zoom } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 const InstructorDetails = ({ instructor }) => {
   const { name, email, image } = instructor;
   return (
-    <div className="cursor-pointer group  border p-2 pb-5 rounded-2xl">
+    <Roll damping={0.1}>
+<div className="cursor-pointer group  border p-2 pb-5 rounded-2xl">
       <div className="flex flex-col gap-2 w-full">
         <div
           className="
@@ -40,6 +42,8 @@ const InstructorDetails = ({ instructor }) => {
         <Link to='/classes'><button className="bg-amber-500 text-white py-2 px-5 rounded-xl font-semibold">See Class</button></Link>
       </div>
     </div>
+    </Roll>
+    
   );
 };
 

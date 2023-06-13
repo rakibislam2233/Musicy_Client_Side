@@ -118,7 +118,6 @@ const ClassesDetails = ({ singleClass }) => {
                   alt="Room"
                 />
               </div>
-              {/* isAdmin || isInstructor ||  */}
               <div className="font-semibold text-2xl">{className}</div>
               <div className="">Instructor : {instructorName}</div>
               <h2>Available seats : {availableSeats<=0?0:availableSeats}</h2>
@@ -134,7 +133,6 @@ const ClassesDetails = ({ singleClass }) => {
                 </>
               ) : (
                 <>
-                  {" "}
                   <button
                     onClick={() => bookingClass(singleClass)}
                     className="py-2 px-5 bg-amber-500 text-white rounded-xl hover:bg-amber-400 transition duration-500"
