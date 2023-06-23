@@ -6,8 +6,6 @@ import { UserContext } from "../Context/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
 import { Toaster, toast } from "react-hot-toast";
-
-
 const SignUp = () => {
   const {createNewUser,googleLogin } = useContext(UserContext)
   const [error, setError] = useState("");
@@ -39,7 +37,6 @@ const SignUp = () => {
       .then((imageData) => {
         const imageUrl = imageData.data.display_url;
         const {name,email,password,confirmPassword} = data;
-        // const userInfo = {name,email,password,confirmPassword}
         createNewUser(email, password).then((result) => {
           const user = result.user;
           updateProfile(user,{

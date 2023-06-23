@@ -8,6 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 const auth = getAuth(app);
+
 export const UserContext = createContext(null);
 import { GoogleAuthProvider } from "firebase/auth";
 import app from "../../Firebase";
@@ -33,19 +34,18 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
       setUser(loggedUser);
-      if(loggedUser){
-        axios.post('https://musicy-server-side.vercel.app/jwt',{email:loggedUser.email})
-        .then(data=>{
-          localStorage.setItem('jwt_token',data.data);
-          setLoading(false);
-        })
+      setLoading(false);
+      // if(loggedUser){
+      //   axios.post('https://musicy-server-side.vercel.app/jwt',{email:loggedUser.email})
+      //   .then(data=>{
+      //     localStorage.setItem('jwt_token',data.data);
+      //     setLoading(false);
+      //   })
 
-      }else{
-        localStorage.removeItem('jwt_token')
-      }
+      // }else{
+      //   localStorage.removeItem('jwt_token')
+      // }
       
-    
- 
     });
     return () => {
       return unsubscribe();
